@@ -7,7 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import toba.user.User;
 
 public class NewCustomerServlet extends HttpServlet {
 
@@ -40,7 +42,7 @@ public class NewCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String url = "/index.html";
+        String url = "/index.jsp";
         String firstName = "";
         String lastName = "";
         String phone = "";
@@ -49,6 +51,8 @@ public class NewCustomerServlet extends HttpServlet {
         String state = "";
         String zipCode = "";
         String email = "";
+        String userName = "";
+        String password = "";
         
         String action = request.getParameter("action");
         if (action == null) {
@@ -63,8 +67,17 @@ public class NewCustomerServlet extends HttpServlet {
         state = request.getParameter("state");
         zipCode = request.getParameter("zipCode");
         email = request.getParameter("email");
+               
+        
+        User user = new User(firstName, lastName, phone, address, city, state,
+                            zipCode, email, firstName + zipCode, "welcome1");
+        
+        HttpSession session = request.getSession();
+        
+        session.setAttribute("user", user);
         
         String message;
+        
             
         if (firstName == null || lastName == null || phone == null || address == null || 
             city == null || state == null || zipCode == null || email == null ||
@@ -77,7 +90,7 @@ public class NewCustomerServlet extends HttpServlet {
             
         else {
             message = "";
-            url = "/success.html";
+            url = "/success.jsp";
         }
 
             

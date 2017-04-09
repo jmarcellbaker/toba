@@ -1,25 +1,14 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>New Customer</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/main.css">
-    </head>
-    <body>
+<%@page contentType="text/html" pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:import url="/includes/header.html" />
         <header>
         <h1>Titan Online Banking Application</h1>
         </header>
         <nav>
             <ul>
-                <li><a href="index.html">HOME</a></li>
-                <li><a href="login.html">LOGIN</a></li>
-                <li><a href="new_customer.html">NEW CUSTOMER</a></li>
+                <li><a href="index.jsp">HOME</a></li>
+                <li><a href="login.jsp">LOGIN</a></li>
+                <li><a href="new_customer.jsp">NEW CUSTOMER</a></li>
             </ul>
         </nav>
         <section>
@@ -45,6 +34,4 @@ and open the template in the editor.
                 <input type="submit" value="Register">
             </form>
         </section>
-        <footer>Copyright &copy; toba.com</footer>
-    </body>
-</html>
+                <c:import url="/includes/footer.jsp" />

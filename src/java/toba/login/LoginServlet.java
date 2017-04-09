@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String url = "/login.html";
+        String url = "/login.jsp";
         String userName = "";
         String password = "";
         
@@ -52,9 +52,9 @@ public class LoginServlet extends HttpServlet {
 
         
         if (userName.equals("jsmith@toba.com") && password.equals("letmein"))
-            url = "/account_activity.html";
+            url = "/account_activity.jsp";
         else 
-            url = "/login_failure.html";
+            url = "/login_failure.jsp";
         
         getServletContext()
             .getRequestDispatcher(url)
