@@ -59,42 +59,46 @@ public class NewCustomerServlet extends HttpServlet {
             action = "newCustomer";
         }
         
-        firstName = request.getParameter("firstName");
-        lastName = request.getParameter("lastName");
-        phone = request.getParameter("phone");
-        address = request.getParameter("address");
-        city = request.getParameter("city");
-        state = request.getParameter("state");
-        zipCode = request.getParameter("zipCode");
-        email = request.getParameter("email");
-               
-        
-        User user = new User(firstName, lastName, phone, address, city, state,
-                            zipCode, email, firstName + zipCode, "welcome1");
-        
-        HttpSession session = request.getSession();
-        
-        session.setAttribute("user", user);
-        
-        String message;
+        if (action.equals("newCustomer")) {
+            firstName = request.getParameter("firstName");
+            lastName = request.getParameter("lastName");
+            phone = request.getParameter("phone");
+            address = request.getParameter("address");
+            city = request.getParameter("city");
+            state = request.getParameter("state");
+            zipCode = request.getParameter("zipCode");
+            email = request.getParameter("email");
+
+
+            User user = new User(firstName, lastName, phone, address, city, state,
+                                zipCode, email, firstName + zipCode, "welcome1");
+
+            HttpSession session = request.getSession();
+
+            session.setAttribute("user", user);
+
+            String message;
         
             
-        if (firstName == null || lastName == null || phone == null || address == null || 
-            city == null || state == null || zipCode == null || email == null ||
-            firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty() || address.isEmpty() || 
-            city.isEmpty() || state.isEmpty() || zipCode.isEmpty() || email.isEmpty()) {
-   
-            message = "Please fill out all the form fields";
-            url = "/new_customer.jsp";
-        }
-            
-        else {
-            message = "";
-            url = "/success.jsp";
+            if (firstName == null || lastName == null || phone == null || address == null || 
+                city == null || state == null || zipCode == null || email == null ||
+                firstName.isEmpty() || lastName.isEmpty() || phone.isEmpty() || address.isEmpty() || 
+                city.isEmpty() || state.isEmpty() || zipCode.isEmpty() || email.isEmpty()) {
+
+                message = "Please fill out all the form fields";
+                request.setAttribute("message", message);
+                url = "/new_customer.jsp";
+            }
+
+            else {
+                message = "";
+                request.setAttribute("message", message);
+                url = "/success.jsp";
+            }
         }
 
             
-        request.setAttribute("message", message);
+        //request.setAttribute("message", message);
             
         getServletContext()
                 .getRequestDispatcher(url)

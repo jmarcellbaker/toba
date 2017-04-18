@@ -17,7 +17,7 @@
                 <input type="text" name="userName" required><br>
                 <label>Password:</label><br>
                 <input type="password" name="password" required>
-                <input type="hidden" name="action" value="register"><br><br>
+                <input type="hidden" name="action" value="login"><br><br>
                 <input type="submit" value="Login"><br><br>
                 <a href="password_reset.jsp">Reset Password</a>
             </form>

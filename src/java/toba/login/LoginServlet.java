@@ -7,6 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import toba.user.User;
 
 public class LoginServlet extends HttpServlet {
 
@@ -37,28 +40,44 @@ public class LoginServlet extends HttpServlet {
    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String url = "/login.jsp";
-        String userName = "";
-        String password = "";
+            throws ServletException, IOException {        
         
         String action = request.getParameter("action");
         if (action == null) {
             action = "login";
         }
         
-        userName = request.getParameter("userName");
-        password = request.getParameter("password");
+        if (action.equals("login")) {
 
+            String userName = request.getParameter("userName");
+            String password = request.getParameter("password");
+            String url = "";
+
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("user");
+
+            if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
+                
+                url = "/account_activity.jsp";
+                
+                getServletContext()
+                .getRequestDispatcher(url)
+                .forward(request, response);  
+            }
+            else {
+                url = "/login_failure.jsp";
+
+                getServletContext()
+                .getRequestDispatcher(url)
+                .forward(request, response);
+            }
+            
+            session.setAttribute("user", user);
+            
+            processRequest(request, response);
+        }
         
-        if (userName.equals("jsmith@toba.com") && password.equals("letmein"))
-            url = "/account_activity.jsp";
-        else 
-            url = "/login_failure.jsp";
         
-        getServletContext()
-            .getRequestDispatcher(url)
-            .forward(request, response);
     }
 
    

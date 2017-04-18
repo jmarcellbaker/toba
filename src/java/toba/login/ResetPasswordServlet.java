@@ -1,4 +1,3 @@
-
 package toba.login;
 
 import java.io.IOException;
@@ -82,7 +81,7 @@ public class ResetPasswordServlet extends HttpServlet {
         
         processRequest(request, response);
     }
-    }
+   }
    
 
     @Override
