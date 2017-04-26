@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/includes/header.html" />
         <header>
-        <h1>Titan Online Banking Application</h1>
+            <img src="images/tobalogo.PNG" alt="TOBA LOGO">
         </header>
         <nav>
             <ul>
@@ -17,10 +17,8 @@
                 <h3>Reset Password</h3>
                 <label>User Name:</label><br>
                 <input type="text" name="userName" required>
-                <label>Phone Number:</label><br>
-                <input type="text" name="phone" required>
                 <label>New Password:</label><br>
-                <input type="password" name="${user.password}" required>
+                <input type="password" name="password" required>
                 <input type="submit" value="Reset">
             </form>
     </section>

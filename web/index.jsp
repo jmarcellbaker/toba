@@ -4,7 +4,7 @@
 
 
         <header>
-        <h1>Titan Online Banking Application</h1>
+            <img src="images/tobalogo.PNG" alt="TOBA LOGO">
         </header>
         <nav>
             <ul>

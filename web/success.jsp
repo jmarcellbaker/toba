@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:import url="/includes/header.html" />
         <header>
-        <h1>Titan Online Banking Application</h1>
+            <img src="images/tobalogo.PNG" alt="TOBA LOGO">
         </header>
         <nav>
             <ul>

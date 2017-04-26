@@ -3,13 +3,13 @@ package toba.login;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import toba.user.User;
+import toba.user.UserDB;
 
 public class ResetPasswordServlet extends HttpServlet {
 
@@ -52,22 +52,27 @@ public class ResetPasswordServlet extends HttpServlet {
             
             String password = request.getParameter("password");
             String userName = request.getParameter("userName");
-            String phone = request.getParameter("phone");
             String message = "";
             String url = "/password_reset.jsp";
             
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("user");
+            User user = new User();
             
-            if (user.getUserName().equals(userName) && user.getPhone().equals(phone)) {
-                        
+            user.setPassword(password);
+            user.setUserName(userName);
+
+            HttpSession session = request.getSession();
+            
+            if (UserDB.userNameExists(user.getUserName())) {
+                 
+                user = UserDB.getUserbyID(userName);
                 user.setPassword(password);
                 session.setAttribute("user", user);
                 response.sendRedirect("account_activity.jsp");
                 message = "";
+                UserDB.update(user);
         }
             else {
-                message = "User name and phone number do not match";
+                message = "User name does not match";
                 url = "/password_reset.jsp";
                 
                 request.setAttribute("message", message);
@@ -77,6 +82,7 @@ public class ResetPasswordServlet extends HttpServlet {
                 .forward(request, response);
             }
             
+        request.setAttribute("user", user);    
         request.setAttribute("message", message);
         
         processRequest(request, response);

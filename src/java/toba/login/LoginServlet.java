@@ -8,8 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import toba.account.Account;
+import static toba.account.Account.Type.CHECKING;
+import static toba.account.Account.Type.SAVINGS;
+import toba.account.AccountDB;
 
 import toba.user.User;
+import toba.user.UserDB;
 
 public class LoginServlet extends HttpServlet {
 
@@ -52,11 +57,25 @@ public class LoginServlet extends HttpServlet {
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
             String url = "";
+            
+            User user =  new User();
+            Account checkingAccount = new Account();
+            Account savingsAccount = new Account();
+            
+            user.setUserName(userName);
+            user.setPassword(password);
 
             HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("user");
 
-            if (user.getUserName().equals(userName) && user.getPassword().equals(password)) {
+            if (UserDB.loginExist(userName, password)) {
+                
+                user = UserDB.getUserbyID(userName);
+                checkingAccount = AccountDB.selectChecking(userName, CHECKING);
+                savingsAccount = AccountDB.selectSavings(userName, SAVINGS);
+                
+                session.setAttribute("user", user);
+                session.setAttribute("savingsAccount", savingsAccount);
+                session.setAttribute("checkingAccount", checkingAccount);
                 
                 url = "/account_activity.jsp";
                 
@@ -72,7 +91,9 @@ public class LoginServlet extends HttpServlet {
                 .forward(request, response);
             }
             
-            session.setAttribute("user", user);
+            request.setAttribute("user", user);
+            request.setAttribute("checkingAccount", checkingAccount);
+            request.setAttribute("savingsAccount", savingsAccount);
             
             processRequest(request, response);
         }

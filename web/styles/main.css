@@ -5,7 +5,7 @@
 
 header {
     color: whitesmoke;
-    background-color: midnightblue;
+    background-color: #0A2351;
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -23,7 +23,7 @@ h3 {
 nav {
     text-align: center;
     font-size: 18px;
-    background-color: gold;
+    background-color: #ffbd4a;
 }
 
 nav ul {
@@ -48,7 +48,7 @@ section {
 
 footer {
     color: whitesmoke;
-    background-color: midnightblue;
+    background-color: #0A2351;
     text-align: center;
     padding: 40px;
 }
@@ -72,7 +72,7 @@ input[type=text], input[type=password], input[type=email], select {
 
 input[type=submit] {
     width: 300px;
-    background-color: midnightblue;
+    background-color: #0A2351;
     color: whitesmoke;
     padding: 15px 20px;
     margin: 10px 0;
@@ -82,7 +82,7 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: midnightblue;
+    background-color: #0A2351;
 }
 
 .error {
@@ -107,7 +107,7 @@ span {
     font-weight: bold;
     text-align: right;
     font-size: 20px;
-    background-color: gold;     
+    background-color: #ffbd4a;     
 }
 
 .center {
@@ -120,5 +120,32 @@ span {
     font-weight: bold;
     text-align: center;
     font-size: 18px;
+}
+
+table {
+    display: table;
+    border-spacing: 2px;
+    padding-top: 30px;
+}
+
+th, td {
+    border: 1px solid BLACK;
+    padding: 15px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    text-align: center;
+}
+
+caption {
+    font-size: 20px;
+    text-decoration: underline;
+    padding-top: 20px;
+    
+}
+
+img {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
 }
 

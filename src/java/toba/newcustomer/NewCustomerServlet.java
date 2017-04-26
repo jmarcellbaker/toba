@@ -1,42 +1,17 @@
 package toba.newcustomer;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import java.io.*;
+import java.util.HashSet;
+import java.util.Set;
+import javax.servlet.*;
+import javax.servlet.http.*;
+import toba.account.Account;
+import toba.account.AccountDB;
 
 import toba.user.User;
+import toba.user.UserDB;
 
 public class NewCustomerServlet extends HttpServlet {
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewCustomerServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewCustomerServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -69,13 +44,36 @@ public class NewCustomerServlet extends HttpServlet {
             zipCode = request.getParameter("zipCode");
             email = request.getParameter("email");
 
+            User user = new User();
+            
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setPhone(phone);
+            user.setAddress(address);
+            user.setCity(city);
+            user.setState(state);
+            user.setZipCode(zipCode);
+            user.setEmail(email);
+            user.setUserName(firstName + zipCode);
+            user.setPassword("welcome1");
+            
+            //double checkingAccount = 0.0;
+            //double savingsAccount = 25.0;
+            
+            Account.Type cAccount = Account.Type.CHECKING;
+            Account.Type sAccount = Account.Type.SAVINGS;
+            
+            Account checkingAccount = new Account(user, 0.00, cAccount);
+            Account savingsAccount = new Account(user, 25.00, sAccount);
+            
+            //account.creditChecking(0.0);
+            //account.creditSavings(25.0);
+            
 
-            User user = new User(firstName, lastName, phone, address, city, state,
-                                zipCode, email, firstName + zipCode, "welcome1");
-
-            HttpSession session = request.getSession();
-
-            session.setAttribute("user", user);
+            //HttpSession session = request.getSession();
+            
+            //session.setAttribute("user", user);
+            //session.setAttribute("account", account);
 
             String message;
         
@@ -94,21 +92,21 @@ public class NewCustomerServlet extends HttpServlet {
                 message = "";
                 request.setAttribute("message", message);
                 url = "/success.jsp";
+                UserDB.insert(user);
+                AccountDB.insert(checkingAccount);
+                AccountDB.insert(savingsAccount);
             }
+            
+            request.setAttribute("user", user);
+            request.setAttribute("checkingAccount", checkingAccount);
+            request.setAttribute("savingsAccount", savingsAccount);
+            //request.setAttribute("message", message);
         }
 
-            
-        //request.setAttribute("message", message);
-            
+                       
         getServletContext()
                 .getRequestDispatcher(url)
                 .forward(request, response);
     }
-
-    
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
